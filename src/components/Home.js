@@ -1,10 +1,18 @@
 import React from 'react';
+// import NoteInput from "./noteInput";
+import NotesContent from './NotesContent';
 
 
 const Home = () => {
-    return (<>
-    This is home
-    </>);
+    return (
+        <>
+        {/* <NoteInput /> */}
+        
+
+        <NotesContent />
+        
+        </>
+    );
 }
 
 
