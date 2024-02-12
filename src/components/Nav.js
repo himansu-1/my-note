@@ -1,13 +1,17 @@
-import React  from 'react';
-import { Link , useLocation} from "react-router-dom";
+import React from 'react';
+import { Link, useLocation } from "react-router-dom";
 
 
 
 const Nav = () => {
     const location = useLocation()
 
+    const handleLogout = ()=>{
+        localStorage.removeItem("token")
+    }
+
     return (<>
-        <nav className="navbar fixed-top navbar-expand-lg bg-info-subtle p-0">
+        <nav className="navbar  navbar-expand-lg bg-info-subtle p-1">
             <div className="container-fluid ">
                 <a className="navbar-brand" href="#/">Navbar</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,10 +20,10 @@ const Nav = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className={`nav-link ${location.pathname === "/"?"link-danger":""}`} aria-current="page" to="/">Home</Link>
+                            <Link className={`nav-link ${location.pathname === "/" ? "link-danger" : ""}`} aria-current="page" to="/">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link  ${location.pathname === "/about"?"link-danger":""}`} to="/about">About</Link>
+                            <Link className={`nav-link  ${location.pathname === "/about" ? "link-danger" : ""}`} to="/about">About</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,10 +40,16 @@ const Nav = () => {
                             <a className="nav-link disabled" aria-disabled="true" href='/'>Disabled</a>
                         </li>
                     </ul>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2 align-self-center py-0" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success align-self-center py-0" type="submit">Search</button>
-                    </form>
+                    <div className="d-flex" >
+                        {
+                            !localStorage.getItem("token") ?
+                            (
+                                location.pathname === "/login"  ?
+                                <Link className="btn btn-primary align-self-center py-0 mx-2" to="/signup" rolee="button">Signup</Link>  :
+                                <Link className="btn btn-primary align-self-center py-0 " to="/login" rolee="button">Login</Link>
+                            ) :
+                                <Link className="btn btn-primary align-self-center py-0" to="/signup" rolee="button" onClick={handleLogout}>Logout</Link>}
+                    </div>
                 </div>
             </div>
         </nav>

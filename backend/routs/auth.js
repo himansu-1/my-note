@@ -18,6 +18,7 @@ router.post("/CreateUser"
         body('password', "Enter a valid Password").notEmpty().isLength({ min: 4 })
     ]
     , async (req, res) => {
+        let success = false
         const error = validationResult(req);
         // if the validationResult throw any error the given if statement works
         if (!error.isEmpty()) {
@@ -47,11 +48,12 @@ router.post("/CreateUser"
                     id:user.id
                 }
             }
+            success= true
             const authToken = jwt.sign(data,JWT_SIGN)
 
             // printing the final user inputed result
             // res.json({finalPassword,user,authToken})
-            res.json({authToken})
+            res.json({success,authToken})
 
         } catch (error) {
             console.log(error)
@@ -69,6 +71,7 @@ router.post("/login"
     ]
     , async (req, res) => {
         // if the validationResult throw any error the given if statement works
+        let success = false
         const error = validationResult(req);
         if (!error.isEmpty()) {
             return res.status(400).json({ arrors: error.array() })
@@ -80,13 +83,13 @@ router.post("/login"
             // checking valid email entered or not
             let user =await User.findOne({email})
             if (!user) {
-                return res.status(400).json({error:"Please enter a valid Email Account"})
+                return res.status(400).json({success,error:"Please enter a valid Email Account"})
             }
 
             // checking valid password entered or not
             const verifyPassword = await bcrypt.compare(password,user.password)
             if (!verifyPassword) {
-                return res.status(400).json({error:"Please enter a correct Password"})
+                return res.status(400).json({success,error:"Please enter a correct Password"})
             }
             
             // final Authentication occured using 'josnwebtoken'
@@ -95,10 +98,11 @@ router.post("/login"
                     id:user.id
                 }
             }
+            success= true
             const authToken = jwt.sign(data,JWT_SIGN)
 
             // printing the final user inputed result
-            res.json({authToken})
+            res.json({success,authToken})
 
         } catch (error) {
             console.log(error)

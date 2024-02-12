@@ -11,7 +11,7 @@ const NoteState = (props) => {
         method: "GET", // or 'PUT'
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjViYmMxM2UxOGM5YTYxYTg3YzZlMGY0In0sImlhdCI6MTcwNjgwNDA3OH0.TiZkqcdwvmWkh11Yv5GYeDXAh2GyjvrBUfZEEgQVq2c"
+          "auth-token":localStorage.getItem("token")
         }
       });
 
@@ -30,7 +30,7 @@ const NoteState = (props) => {
         method: "DELETE", // or 'PUT'
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjViYmMxM2UxOGM5YTYxYTg3YzZlMGY0In0sImlhdCI6MTcwNjgwNDA3OH0.TiZkqcdwvmWkh11Yv5GYeDXAh2GyjvrBUfZEEgQVq2c"
+          "auth-token":localStorage.getItem("token")
         }
       })      
       const result = await response.json()
@@ -51,7 +51,7 @@ const NoteState = (props) => {
         method: "PUT", // or 'PUT'
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjViYmMxM2UxOGM5YTYxYTg3YzZlMGY0In0sImlhdCI6MTcwNjgwNDA3OH0.TiZkqcdwvmWkh11Yv5GYeDXAh2GyjvrBUfZEEgQVq2c"
+          "auth-token":localStorage.getItem("token")
         },
         body: JSON.stringify({title, description, tag})
       });
@@ -86,7 +86,7 @@ const NoteState = (props) => {
         method: "POST", // or 'PUT'
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjViYmMxM2UxOGM5YTYxYTg3YzZlMGY0In0sImlhdCI6MTcwNjgwNDA3OH0.TiZkqcdwvmWkh11Yv5GYeDXAh2GyjvrBUfZEEgQVq2c"
+          "auth-token":localStorage.getItem("token")
         },
         body:JSON.stringify({title, description, tag})
       })      
@@ -123,7 +123,7 @@ const NoteState = (props) => {
   //   setNote(note.concat(tempNote))
   //   console.log(note)
   // }
-
+  
   return (
     <>
       <NoteContext.Provider value={{ note, addNote, deleteNote, getNotes ,editNote}}>
